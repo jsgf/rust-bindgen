@@ -142,6 +142,35 @@ pub trait ParseCallbacks: fmt::Debug {
         vec![]
     }
 
+    /// Provide a list of custom attributes for struct/union fields.
+    ///
+    /// These attributes will be applied to the field in the generated Rust code.
+    /// If no additional attributes are wanted, this function should return an
+    /// empty `Vec`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use bindgen::callbacks::{ParseCallbacks, FieldAttributeInfo};
+    /// # #[derive(Debug)]
+    /// # struct MyCallbacks;
+    /// # impl ParseCallbacks for MyCallbacks {
+    /// fn field_attributes(&self, info: &FieldAttributeInfo<'_>) -> Vec<String> {
+    ///     if info.field_name == "internal" {
+    ///         vec!["serde(skip)".to_string()]
+    ///     } else if info.field_name == "0" {
+    ///         // Newtype tuple field
+    ///         vec!["serde(transparent)".to_string()]
+    ///     } else {
+    ///         vec![]
+    ///     }
+    /// }
+    /// # }
+    /// ```
+    fn field_attributes(&self, _info: &FieldAttributeInfo<'_>) -> Vec<String> {
+        vec![]
+    }
+
     /// Process a source code comment.
     fn process_comment(&self, _comment: &str) -> Option<String> {
         None
@@ -169,7 +198,13 @@ pub trait ParseCallbacks: fmt::Debug {
     }
 
     /// This will get called everytime an item (currently struct, union, and alias) is found with some information about it
-    fn new_item_found(&self, _id: DiscoveredItemId, _item: DiscoveredItem) {}
+    fn new_item_found(
+        &self,
+        _id: DiscoveredItemId,
+        _item: DiscoveredItem,
+        _source_location: Option<&SourceLocation>,
+    ) {
+    }
 
     // TODO add callback for ResolvedTypeRef
 }
@@ -244,11 +279,23 @@ pub enum DiscoveredItem {
         /// Type to which this method belongs.
         parent: DiscoveredItemId,
     }, // modules, etc.
+
+    /// A constant.
+    Constant {
+        /// The final name of the generated binding
+        final_name: String,
+    },
+
+    /// A variable.
+    Variable {
+        /// The final name of the generated binding
+        final_name: String,
+    },
 }
 
 /// Relevant information about a type to which new derive attributes will be added using
 /// [`ParseCallbacks::add_derives`].
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct DeriveInfo<'a> {
     /// The name of the type.
@@ -259,7 +306,7 @@ pub struct DeriveInfo<'a> {
 
 /// Relevant information about a type to which new attributes will be added using
 /// [`ParseCallbacks::add_attributes`].
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct AttributeInfo<'a> {
     /// The name of the type.
@@ -280,7 +327,7 @@ pub enum TypeKind {
 }
 
 /// A struct providing information about the item being passed to [`ParseCallbacks::generated_name_override`].
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct ItemInfo<'a> {
     /// The name of the item
@@ -290,7 +337,7 @@ pub struct ItemInfo<'a> {
 }
 
 /// An enum indicating the kind of item for an `ItemInfo`.
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum ItemKind {
     /// A module
@@ -305,7 +352,7 @@ pub enum ItemKind {
 
 /// Relevant information about a field for which visibility can be determined using
 /// [`ParseCallbacks::field_visibility`].
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct FieldInfo<'a> {
     /// The name of the type.
@@ -314,4 +361,39 @@ pub struct FieldInfo<'a> {
     pub field_name: &'a str,
     /// The name of the type of the field.
     pub field_type_name: Option<&'a str>,
+}
+
+/// Relevant information about a field to which new attributes will be added using
+/// [`ParseCallbacks::field_attributes`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[non_exhaustive]
+pub struct FieldAttributeInfo<'a> {
+    /// The name of the containing type (struct/union).
+    pub type_name: &'a str,
+
+    /// The kind of the containing type.
+    pub type_kind: TypeKind,
+
+    /// The name of the field.
+    ///
+    /// For newtype tuple structs (when using `--default-alias-style=new_type`),
+    /// this will be `"0"` for the inner field.
+    pub field_name: &'a str,
+
+    /// The name of the field's type, if available.
+    pub field_type_name: Option<&'a str>,
+}
+
+/// Location in the source code. Roughly equivalent to the same type
+/// within `clang_sys`.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SourceLocation {
+    /// Line number.
+    pub line: usize,
+    /// Column number within line.
+    pub col: usize,
+    /// Byte offset within file.
+    pub byte_offset: usize,
+    /// Filename, if known.
+    pub file_name: Option<String>,
 }
