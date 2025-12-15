@@ -1673,9 +1673,7 @@ impl Bitfield {
         let prefix = ctx.trait_prefix();
 
         ctor_impl.append_all(quote! {
-            __bindgen_bitfield_unit.set(
-                #offset,
-                #width,
+            __bindgen_bitfield_unit.set_const::<#offset, #width>(
                 {
                     let #param_name: #bitfield_int_ty = unsafe {
                         ::#prefix::mem::transmute(#param_name)
@@ -2008,7 +2006,7 @@ impl<'a> FieldCodegen<'a> for Bitfield {
                 #access_spec fn #getter_name(&self) -> #bitfield_ty {
                     unsafe {
                         ::#prefix::mem::transmute(
-                            self.#unit_field_ident.as_ref().get(#offset, #width)
+                            self.#unit_field_ident.as_ref().get_const::<#offset, #width>()
                                 as #bitfield_int_ty
                         )
                     }
@@ -2018,9 +2016,7 @@ impl<'a> FieldCodegen<'a> for Bitfield {
                 #access_spec fn #setter_name(&mut self, val: #bitfield_ty) {
                     unsafe {
                         let val: #bitfield_int_ty = ::#prefix::mem::transmute(val);
-                        self.#unit_field_ident.as_mut().set(
-                            #offset,
-                            #width,
+                        self.#unit_field_ident.as_mut().set_const::<#offset, #width>(
                             val as u64
                         )
                     }
@@ -2060,7 +2056,7 @@ impl<'a> FieldCodegen<'a> for Bitfield {
                 #access_spec fn #getter_name(&self) -> #bitfield_ty {
                     unsafe {
                         ::#prefix::mem::transmute(
-                            self.#unit_field_ident.get(#offset, #width)
+                            self.#unit_field_ident.get_const::<#offset, #width>()
                                 as #bitfield_int_ty
                         )
                     }
@@ -2070,9 +2066,7 @@ impl<'a> FieldCodegen<'a> for Bitfield {
                 #access_spec fn #setter_name(&mut self, val: #bitfield_ty) {
                     unsafe {
                         let val: #bitfield_int_ty = ::#prefix::mem::transmute(val);
-                        self.#unit_field_ident.set(
-                            #offset,
-                            #width,
+                        self.#unit_field_ident.set_const::<#offset, #width>(
                             val as u64
                         )
                     }

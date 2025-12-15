@@ -161,13 +161,15 @@ const _: () = {
 impl Test {
     #[inline]
     pub fn x(&self) -> u64 {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 56u8) as u64) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 56u8>() as u64)
+        }
     }
     #[inline]
     pub fn set_x(&mut self, val: u64) {
         unsafe {
             let val: u64 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 56u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 56u8>(val as u64)
         }
     }
     #[inline]
@@ -197,13 +199,15 @@ impl Test {
     }
     #[inline]
     pub fn y(&self) -> u64 {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(56usize, 8u8) as u64) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<56usize, 8u8>() as u64)
+        }
     }
     #[inline]
     pub fn set_y(&mut self, val: u64) {
         unsafe {
             let val: u64 = ::std::mem::transmute(val);
-            self._bitfield_1.set(56usize, 8u8, val as u64)
+            self._bitfield_1.set_const::<56usize, 8u8>(val as u64)
         }
     }
     #[inline]
@@ -235,23 +239,21 @@ impl Test {
     pub fn new_bitfield_1(x: u64, y: u64) -> __BindgenBitfieldUnit<[u8; 8usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 8usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 56u8,
-                {
-                    let x: u64 = unsafe { ::std::mem::transmute(x) };
-                    x as u64
-                },
-            );
+            >({
+                let x: u64 = unsafe { ::std::mem::transmute(x) };
+                x as u64
+            });
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 56usize,
                 8u8,
-                {
-                    let y: u64 = unsafe { ::std::mem::transmute(y) };
-                    y as u64
-                },
-            );
+            >({
+                let y: u64 = unsafe { ::std::mem::transmute(y) };
+                y as u64
+            });
         __bindgen_bitfield_unit
     }
 }

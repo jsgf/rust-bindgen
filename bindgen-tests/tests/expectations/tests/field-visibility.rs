@@ -161,13 +161,15 @@ const _: () = {
 impl my_struct1 {
     #[inline]
     fn a(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 1u8>() as u32)
+        }
     }
     #[inline]
     fn set_a(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 1u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 1u8>(val as u64)
         }
     }
     #[inline]
@@ -199,14 +201,13 @@ impl my_struct1 {
     fn new_bitfield_1(a: ::std::os::raw::c_int) -> __BindgenBitfieldUnit<[u8; 1usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 1u8,
-                {
-                    let a: u32 = unsafe { ::std::mem::transmute(a) };
-                    a as u64
-                },
-            );
+            >({
+                let a: u32 = unsafe { ::std::mem::transmute(a) };
+                a as u64
+            });
         __bindgen_bitfield_unit
     }
 }
@@ -226,13 +227,15 @@ const _: () = {
 impl my_struct2 {
     #[inline]
     pub fn a(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 1u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_a(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 1u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 1u8>(val as u64)
         }
     }
     #[inline]
@@ -266,14 +269,13 @@ impl my_struct2 {
     ) -> __BindgenBitfieldUnit<[u8; 1usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 1u8,
-                {
-                    let a: u32 = unsafe { ::std::mem::transmute(a) };
-                    a as u64
-                },
-            );
+            >({
+                let a: u32 = unsafe { ::std::mem::transmute(a) };
+                a as u64
+            });
         __bindgen_bitfield_unit
     }
 }

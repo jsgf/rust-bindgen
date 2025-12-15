@@ -171,13 +171,15 @@ unsafe extern "C" {
 impl Foo {
     #[inline]
     pub fn type__bindgen_bitfield(&self) -> ::std::os::raw::c_char {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 3u8) as u8) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 3u8>() as u8)
+        }
     }
     #[inline]
     pub fn set_type__bindgen_bitfield(&mut self, val: ::std::os::raw::c_char) {
         unsafe {
             let val: u8 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 3u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 3u8>(val as u64)
         }
     }
     #[inline]
@@ -215,16 +217,15 @@ impl Foo {
     ) -> __BindgenBitfieldUnit<[u8; 1usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 3u8,
-                {
-                    let type__bindgen_bitfield: u8 = unsafe {
-                        ::std::mem::transmute(type__bindgen_bitfield)
-                    };
-                    type__bindgen_bitfield as u64
-                },
-            );
+            >({
+                let type__bindgen_bitfield: u8 = unsafe {
+                    ::std::mem::transmute(type__bindgen_bitfield)
+                };
+                type__bindgen_bitfield as u64
+            });
         __bindgen_bitfield_unit
     }
     #[inline]

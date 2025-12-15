@@ -163,13 +163,15 @@ const _: () = {
 impl mach_msg_type_descriptor_t {
     #[inline]
     pub fn pad3(&self) -> ::std::os::raw::c_uint {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 24u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 24u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_pad3(&mut self, val: ::std::os::raw::c_uint) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 24u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 24u8>(val as u64)
         }
     }
     #[inline]
@@ -199,13 +201,15 @@ impl mach_msg_type_descriptor_t {
     }
     #[inline]
     pub fn type_(&self) -> ::std::os::raw::c_uint {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(24usize, 8u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<24usize, 8u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_type(&mut self, val: ::std::os::raw::c_uint) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(24usize, 8u8, val as u64)
+            self._bitfield_1.set_const::<24usize, 8u8>(val as u64)
         }
     }
     #[inline]
@@ -240,23 +244,21 @@ impl mach_msg_type_descriptor_t {
     ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 24u8,
-                {
-                    let pad3: u32 = unsafe { ::std::mem::transmute(pad3) };
-                    pad3 as u64
-                },
-            );
+            >({
+                let pad3: u32 = unsafe { ::std::mem::transmute(pad3) };
+                pad3 as u64
+            });
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 24usize,
                 8u8,
-                {
-                    let type_: u32 = unsafe { ::std::mem::transmute(type_) };
-                    type_ as u64
-                },
-            );
+            >({
+                let type_: u32 = unsafe { ::std::mem::transmute(type_) };
+                type_ as u64
+            });
         __bindgen_bitfield_unit
     }
 }
