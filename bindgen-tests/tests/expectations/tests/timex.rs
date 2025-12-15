@@ -194,13 +194,15 @@ impl Default for timex_named {
 impl timex_named {
     #[inline]
     pub fn a(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_a(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -230,13 +232,15 @@ impl timex_named {
     }
     #[inline]
     pub fn b(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(32usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<32usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_b(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(32usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<32usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -266,13 +270,15 @@ impl timex_named {
     }
     #[inline]
     pub fn c(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(64usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<64usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_c(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(64usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<64usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -302,13 +308,15 @@ impl timex_named {
     }
     #[inline]
     pub fn d(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(96usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<96usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_d(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(96usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<96usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -338,13 +346,15 @@ impl timex_named {
     }
     #[inline]
     pub fn e(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(128usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<128usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_e(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(128usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<128usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -374,13 +384,15 @@ impl timex_named {
     }
     #[inline]
     pub fn f(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(160usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<160usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_f(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(160usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<160usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -410,13 +422,15 @@ impl timex_named {
     }
     #[inline]
     pub fn g(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(192usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<192usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_g(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(192usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<192usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -446,13 +460,15 @@ impl timex_named {
     }
     #[inline]
     pub fn h(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(224usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<224usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_h(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(224usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<224usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -482,13 +498,15 @@ impl timex_named {
     }
     #[inline]
     pub fn i(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(256usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<256usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_i(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(256usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<256usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -518,13 +536,15 @@ impl timex_named {
     }
     #[inline]
     pub fn j(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(288usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<288usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_j(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(288usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<288usize, 32u8>(val as u64)
         }
     }
     #[inline]
@@ -554,13 +574,15 @@ impl timex_named {
     }
     #[inline]
     pub fn k(&self) -> ::std::os::raw::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(320usize, 32u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<320usize, 32u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_k(&mut self, val: ::std::os::raw::c_int) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(320usize, 32u8, val as u64)
+            self._bitfield_1.set_const::<320usize, 32u8>(val as u64)
         }
     }
     #[inline]

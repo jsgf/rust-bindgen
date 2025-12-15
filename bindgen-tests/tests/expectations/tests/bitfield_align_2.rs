@@ -177,13 +177,15 @@ impl Default for TaggedPtr {
 impl TaggedPtr {
     #[inline]
     pub fn tag(&self) -> MyEnum {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 2u8) as u32) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<0usize, 2u8>() as u32)
+        }
     }
     #[inline]
     pub fn set_tag(&mut self, val: MyEnum) {
         unsafe {
             let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 2u8, val as u64)
+            self._bitfield_1.set_const::<0usize, 2u8>(val as u64)
         }
     }
     #[inline]
@@ -213,13 +215,15 @@ impl TaggedPtr {
     }
     #[inline]
     pub fn ptr(&self) -> ::std::os::raw::c_long {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(2usize, 62u8) as u64) }
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get_const::<2usize, 62u8>() as u64)
+        }
     }
     #[inline]
     pub fn set_ptr(&mut self, val: ::std::os::raw::c_long) {
         unsafe {
             let val: u64 = ::std::mem::transmute(val);
-            self._bitfield_1.set(2usize, 62u8, val as u64)
+            self._bitfield_1.set_const::<2usize, 62u8>(val as u64)
         }
     }
     #[inline]
@@ -254,23 +258,21 @@ impl TaggedPtr {
     ) -> __BindgenBitfieldUnit<[u8; 8usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 8usize]> = Default::default();
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 0usize,
                 2u8,
-                {
-                    let tag: u32 = unsafe { ::std::mem::transmute(tag) };
-                    tag as u64
-                },
-            );
+            >({
+                let tag: u32 = unsafe { ::std::mem::transmute(tag) };
+                tag as u64
+            });
         __bindgen_bitfield_unit
-            .set(
+            .set_const::<
                 2usize,
                 62u8,
-                {
-                    let ptr: u64 = unsafe { ::std::mem::transmute(ptr) };
-                    ptr as u64
-                },
-            );
+            >({
+                let ptr: u64 = unsafe { ::std::mem::transmute(ptr) };
+                ptr as u64
+            });
         __bindgen_bitfield_unit
     }
 }
