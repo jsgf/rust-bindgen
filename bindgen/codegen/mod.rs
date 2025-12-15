@@ -1051,6 +1051,7 @@ impl CodeGenerator for Type {
                                 inner_item.id().as_usize(),
                             ),
                         },
+                        None,
                     );
                 });
 
@@ -2614,7 +2615,7 @@ impl CodeGenerator for CompInfo {
                 },
             };
 
-            cb.new_item_found(discovered_id, discovered_item);
+            cb.new_item_found(discovered_id, discovered_item, None);
         });
 
         // The custom derives callback may return a list of derive attributes;
@@ -3187,6 +3188,7 @@ impl Method {
                     parent: parent_id,
                     final_name: name.clone(),
                 },
+                None,
             );
         });
 
@@ -3923,6 +3925,7 @@ impl CodeGenerator for Enum {
                 DiscoveredItem::Enum {
                     final_name: name.to_string(),
                 },
+                None,
             );
         });
 
@@ -4831,6 +4834,7 @@ impl CodeGenerator for Function {
                 DiscoveredItem::Function {
                     final_name: canonical_name.to_string(),
                 },
+                None,
             );
         });
 

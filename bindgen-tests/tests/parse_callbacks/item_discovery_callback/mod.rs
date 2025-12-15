@@ -4,7 +4,9 @@ use std::rc::Rc;
 
 use regex::Regex;
 
-use bindgen::callbacks::{DiscoveredItem, DiscoveredItemId, ParseCallbacks};
+use bindgen::callbacks::{
+    DiscoveredItem, DiscoveredItemId, ParseCallbacks, SourceLocation,
+};
 use bindgen::Builder;
 
 #[derive(Debug, Default)]
@@ -13,7 +15,12 @@ struct ItemDiscovery(Rc<RefCell<ItemCache>>);
 pub type ItemCache = HashMap<DiscoveredItemId, DiscoveredItem>;
 
 impl ParseCallbacks for ItemDiscovery {
-    fn new_item_found(&self, _id: DiscoveredItemId, _item: DiscoveredItem) {
+    fn new_item_found(
+        &self,
+        _id: DiscoveredItemId,
+        _item: DiscoveredItem,
+        _source_location: Option<&SourceLocation>,
+    ) {
         self.0.borrow_mut().insert(_id, _item);
     }
 }
@@ -183,6 +190,12 @@ fn compare_item_info(
         }
         DiscoveredItem::Method { .. } => {
             compare_method_info(expected_item, generated_item)
+        }
+        DiscoveredItem::Constant { .. } => {
+            compare_constant_info(expected_item, generated_item)
+        }
+        DiscoveredItem::Variable { .. } => {
+            compare_variable_info(expected_item, generated_item)
         }
     }
 }
@@ -369,6 +382,54 @@ pub fn compare_method_info(
     if expected_parent != generated_parent {
         return false;
     }
+
+    if !compare_names(expected_final_name, generated_final_name) {
+        return false;
+    }
+    true
+}
+
+pub fn compare_constant_info(
+    expected_item: &DiscoveredItem,
+    generated_item: &DiscoveredItem,
+) -> bool {
+    let DiscoveredItem::Constant {
+        final_name: expected_final_name,
+    } = expected_item
+    else {
+        unreachable!()
+    };
+
+    let DiscoveredItem::Constant {
+        final_name: generated_final_name,
+    } = generated_item
+    else {
+        unreachable!()
+    };
+
+    if !compare_names(expected_final_name, generated_final_name) {
+        return false;
+    }
+    true
+}
+
+pub fn compare_variable_info(
+    expected_item: &DiscoveredItem,
+    generated_item: &DiscoveredItem,
+) -> bool {
+    let DiscoveredItem::Variable {
+        final_name: expected_final_name,
+    } = expected_item
+    else {
+        unreachable!()
+    };
+
+    let DiscoveredItem::Variable {
+        final_name: generated_final_name,
+    } = generated_item
+    else {
+        unreachable!()
+    };
 
     if !compare_names(expected_final_name, generated_final_name) {
         return false;
